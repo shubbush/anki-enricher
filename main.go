@@ -78,6 +78,12 @@ func getWordCard(client *http.Client, word string) string {
 		card = doc.Find("#")
 	}
 
+	ruTranslation := doc.Find("dd[lang=ru] span:nth-child(2)")
+
+	if len(ruTranslation.Nodes) > 0 {
+		card.Find("span[lang=en]").SetText(ruTranslation.Text())
+	}
+
 	card.Find("a").Remove()
 	card.Find("#vStckLngImg").Remove()
 	card.Find("#vVdPlay").Remove()
